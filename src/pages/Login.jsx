@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
+  const userEmail = import.meta.env.VITE_EMAIL
+  const pass =import.meta.env.VITE_PASS
+
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -12,6 +17,12 @@ const Login = () => {
       setError('Please fill out all fields.');
     } else {
       // Normally, you would handle login logic here
+      if(email !== userEmail || password !== pass){
+        setError('Invalid email or password.');
+        return;
+      }else{
+        navigate('/admin')
+      }
       console.log('Logging in with', email, password);
       setError('');
     }
